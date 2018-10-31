@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -96,7 +97,11 @@ public class PpwhService {
         if (ppwhList.size() == 0) {
             return RespResultUtil.success(RespResultEnum.EMPTY_RESULT);
         }
-        return RespResultUtil.success(RespResultEnum.FIND_SUCCESS, ppwhList, new Integer(ppwhList.size()).longValue());
+        ArrayList<String> arrayList = new ArrayList<>();
+        for (Ppwh phwh : ppwhList) {
+            arrayList.add(phwh.getPicPath());
+        }
+        return RespResultUtil.success(RespResultEnum.FIND_SUCCESS, arrayList, new Integer(arrayList.size()).longValue());
     }
 
     /**
