@@ -1,0 +1,23 @@
+spring:
+  profiles:
+    active: prod #加载不同配置文件
+  datasource:
+      url: jdbc:mysql://localhost:3306/pic_db?useSSL=false
+      driver-class-name: com.mysql.jdbc.Driver
+      username: root
+      password: root
+
+mybatis:
+    type-aliases-package: com.im.pojo
+    mapper-locations: classpath:mapper/*.xml
+
+mapper:
+    mappers: com.im.utils.MyMapper
+    not-empty: false
+    identity: MYSQL
+
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
