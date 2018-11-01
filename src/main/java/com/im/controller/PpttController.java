@@ -1,14 +1,21 @@
 package com.im.controller;
 
 import com.im.domain.RespResult;
+import com.im.enums.RespResultEnum;
 import com.im.pojo.Pptt;
 import com.im.service.PpttService;
 import com.im.utils.RespResultUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.*;
+import java.util.UUID;
 
 /**
  * 品牌推图
@@ -16,8 +23,42 @@ import javax.validation.Valid;
  */
 @RestController
 public class PpttController {
+    private final static Logger logger = LoggerFactory.getLogger(PpttController.class);
     @Autowired
     private PpttService ppttService;
+    @Value("${file.uploadFolder}")
+    private String uploadFolder;
+    @Value("${file.filePrefix}")
+    private String filePrefix;
+
+    @PostMapping(value = "/up_pptt")
+    public RespResult upPpttImg(@RequestParam(value = "file") MultipartFile file) {
+        if (!file.isEmpty()) {
+            String image_file_name;
+            try {
+                image_file_name = UUID.randomUUID().toString().replace("-", "").toUpperCase() + ".jpg";
+                BufferedOutputStream out = new BufferedOutputStream(
+                        new FileOutputStream(new File(uploadFolder + image_file_name)));
+                out.write(file.getBytes());
+                out.flush();
+                out.close();
+//                Pptt pptt = new Pptt();
+//                pptt.setTitle(title);
+//                pptt.setPicture(filePrefix + image_file_name);
+//                pptt.setpType(p_type);
+//                ppttService.savePptt(pptt);
+            } catch (FileNotFoundException e) {
+                logger.error(e.getMessage());
+                return RespResultUtil.sysError(RespResultEnum.SYS_EXCEPTION);
+            } catch (IOException e) {
+                logger.error(e.getMessage());
+                return RespResultUtil.sysError(RespResultEnum.SYS_EXCEPTION);
+            }
+            return RespResultUtil.success(RespResultEnum.SUCCESS, filePrefix + image_file_name);
+        } else {
+            return RespResultUtil.sysError(RespResultEnum.SYS_EXCEPTION);
+        }
+    }
 
     /**
      * 条件查询 无分页

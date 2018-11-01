@@ -6,6 +6,14 @@ spring:
       driver-class-name: com.mysql.jdbc.Driver
       username: root
       password: root
+  servlet:
+    multipart:
+      max-file-size: 10Mb
+
+file:
+  staticAccessPath: /img/**
+  uploadFolder: G://xiazai/
+  filePrefix: http://localhost:8081/pic_api/img/
 
 mybatis:
     type-aliases-package: com.im.pojo

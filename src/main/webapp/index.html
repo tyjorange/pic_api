@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>图片上传</title>
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <script src="layui/layui.all.js"></script>
+</head>
+<body>
+<div>
+    <button class="layui-btn layui-btn-primary" id="btn1">品牌推图</button>
+    <button class="layui-btn layui-btn-primary" id="btn2">品牌文化</button>
+</div>
+<script>
+    layui.use('layer', function () {
+        var $ = layui.jquery
+                , layer = layui.layer;
+        $("#btn1").on("click", function () {
+            layer.open({
+                type: 2,
+                content: 'pptt.html',
+                title: "品牌推图图片上传",
+                area: ['800px', '600px'],
+                fixed: true,
+                maxmin: true
+            });
+        });
+        $("#btn2").on("click", function () {
+            layer.open({
+                type: 2,
+                content: 'ppwh.html',
+                title: "品牌文化图片上传",
+                area: ['800px', '600px'],
+                fixed: true,
+                maxmin: true
+            });
+        });
+
+    });
+</script>
+</body>
+</html>
