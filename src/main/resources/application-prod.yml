@@ -1,5 +1,5 @@
 server:
-  port: 8081
+  port: 8080
   servlet:
     context-path: /pic_api
 logging:
@@ -8,5 +8,5 @@ logging:
 
 file:
   staticAccessPath: /img/**
-  uploadFolder: /var/local/pic_api/imgs
+  uploadFolder: /var/local/pic_api/imgs/
   filePrefix: http://120.79.82.1:8080/pic_api/img/

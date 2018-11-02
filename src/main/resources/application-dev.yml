@@ -9,4 +9,4 @@ logging:
 file:
   staticAccessPath: /img/**
   uploadFolder: G://xiazai/
-  filePrefix: http://localhost:8081/pic_api/img/
+  filePrefix: http://localhost:8082/pic_api/img/

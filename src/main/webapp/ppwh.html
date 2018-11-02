@@ -77,11 +77,15 @@
             });
             return false;
         });
+        var l_index;
         upload.render({
             elem: '#test1'
             , url: '/pic_api/up_img'
             , auto: true
             , before: function (obj) {
+                l_index = layer.load(2, {
+                    shade: [0.1, '#fff']
+                });
                 obj.preview(function (index, file, result) {
                     $('#demo1').attr('src', result);
                 });
@@ -90,6 +94,7 @@
                 if (res.code != 100) {
                     return layer.msg('上传失败');
                 }
+                layer.close(l_index);
                 $('#img_url').val(res.data);
             }
         });
