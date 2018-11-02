@@ -27,8 +27,9 @@
         <!-- 配置mapper对应的java映射 -->
         <javaClientGenerator targetPackage="com.im.mapper" targetProject="src/main/java" type="XMLMAPPER"/>
 
-        <table tableName="pptt"></table>
-        <table tableName="ppwh"></table>
+        <!--<table tableName="pptt"></table>
+        <table tableName="ppwh"></table>-->
+        <table tableName="pp_user"></table>
 
     </context>
 </generatorConfiguration>

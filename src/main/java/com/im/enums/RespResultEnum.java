@@ -18,6 +18,8 @@ public enum RespResultEnum {
     AUTH_FAILED(122, "权限错误"),
     SUCCESS(100, "操作成功"),
     FAILED(101, "操作失败"),
+    LOGIN_SUCCESS(200, "登录成功"),
+    LOGIN_FAILED(201, "登录失败"),
     SYS_EXCEPTION(-1, "服务器内部错误");
 
     private Integer code;

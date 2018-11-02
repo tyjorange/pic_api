@@ -62,6 +62,7 @@ public class PpttService {
      *
      * @param id
      */
+    @Transactional
     public RespResult deletePptt(Integer id) {
         int i = mapper.deleteByPrimaryKey(id);
         if (i == 0) {

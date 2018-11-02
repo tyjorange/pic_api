@@ -60,6 +60,7 @@ public class PpwhService {
      *
      * @param id
      */
+    @Transactional
     public RespResult deletePpwh(Integer id) {
         int i = mapper.deleteByPrimaryKey(id);
         if (i == 0) {

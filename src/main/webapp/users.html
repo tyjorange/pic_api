@@ -1,0 +1,126 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>用户列表</title>
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <style type="text/css">
+        .layui-form {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .layui-form-item {
+            margin-top: 15px;
+            margin-bottom: 15px;
+            margin-left: 10px;
+            clear: both;
+        }
+
+        .layui-table-body {
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body>
+<!-- 搜索栏开始 -->
+<form class="layui-form layui-form-pane">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">用户名</label>
+
+            <div class="layui-input-block">
+                <input type="text" name="username" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <button class="layui-btn layui-btn-primary" type="reset"><i class="layui-icon layui-icon-close"></i>重新输入
+            </button>
+            <button class="layui-btn" lay-submit lay-filter="find"><i class="layui-icon layui-icon-search"></i>查询
+            </button>
+        </div>
+    </div>
+    <table class="layui-hide" id="tb_elem" lay-filter="tb_filter"></table>
+</form>
+<!-- 搜索栏结束 -->
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delItem">删除</a>
+</script>
+
+<script src="layui/layui.all.js"></script>
+<script>
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'form'], function () {
+        var laydate = layui.laydate
+                , laypage = layui.laypage
+                , layer = layui.layer
+                , table = layui.table
+                , carousel = layui.carousel
+                , upload = layui.upload
+                , element = layui.element
+                , form = layui.form
+                , $ = layui.$;
+        //执行一个 table 实例
+        table.render({
+            id: 'tb_instance'
+            , elem: '#tb_elem'
+            , height: 'full'
+            , url: 'query_user_page'
+            , page: true
+            , loading: true
+            , cols: [[
+                {field: '', title: '#', type: 'numbers', sort: false}
+                , {field: 'username', title: '用户名', sort: true}
+                , {field: 'password', title: '密码', sort: false}
+                , {field: 'genTime', title: '添加时间', sort: false}
+                , {toolbar: '#barDemo', align: 'center'}
+            ]]
+        });
+        // 表格监听
+        table.on('tool(tb_filter)', function (obj) {
+            var data_tr = obj.data
+                    , layEvent = obj.event;
+            if (layEvent === 'delItem') {
+                deleteWH(data_tr);
+            }
+        });
+
+        // 查询监听
+        form.on('submit(find)', function (data) {
+            find(data);
+            return false;
+        });
+
+        // 查询
+        function find(data) {
+            table.reload('tb_instance', {
+                where: data.field
+                , page: {
+                    curr: 1
+                }
+            });
+        }
+
+        // 删除
+        function deleteWH(data_tr) {
+            console.log(data_tr);
+            layer.confirm('确认删除记录？', function (index) {
+                $.ajax({
+                    url: "/pic_api/user/" + data_tr.uId,
+                    type: 'DELETE',
+                    success: function (resp) {
+                        if (resp.code === 30) {
+                            parent.layer.msg(resp.msg);
+                            layer.close(index);
+                        } else {
+                            parent.layer.msg(resp.msg);
+                        }
+                        table.reload('tb_instance');
+                    }
+                });
+            });
+        }
+    });
+</script>
+</body>
+</html>

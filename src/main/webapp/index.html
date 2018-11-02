@@ -29,6 +29,14 @@
     <br>
     <button class="layui-btn layui-btn-primary" id="btn3">品牌推图-管理</button>
     <button class="layui-btn layui-btn-primary" id="btn4">品牌文化-管理</button>
+    <br>
+    <br>
+    <button class="layui-btn layui-btn-primary" id="btn5">用户-添加</button>
+    <button class="layui-btn layui-btn-primary" id="btn6" style="visibility: hidden">用户-添加</button>
+    <br>
+    <br>
+    <button class="layui-btn layui-btn-primary" id="btn7">用户-管理</button>
+    <button class="layui-btn layui-btn-primary" id="btn8" style="visibility: hidden">用户-管理</button>
 </div>
 <script>
     layui.use('layer', function () {
@@ -74,7 +82,26 @@
                 maxmin: true
             });
         });
-
+        $("#btn5").on("click", function () {
+            layer.open({
+                type: 2,
+                content: 'user.html',
+                title: "添加用户",
+                area: ['800px', '600px'],
+                fixed: true,
+                maxmin: true
+            });
+        });
+        $("#btn7").on("click", function () {
+            layer.open({
+                type: 2,
+                content: 'users.html',
+                title: "添加用户",
+                area: ['800px', '600px'],
+                fixed: true,
+                maxmin: true
+            });
+        });
     });
 </script>
 </body>

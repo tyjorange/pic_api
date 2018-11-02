@@ -6,12 +6,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 public class Pptt {
-    public interface SimpView {
-    }
-
-    public interface DetailView extends SimpView {
-    }
-
     @Id
     @Column(name = "p_id")
     private Integer pId;
