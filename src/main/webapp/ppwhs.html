@@ -51,24 +51,24 @@
 <script src="layui/layui.all.js"></script>
 <script>
     layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'form'], function () {
-        var laydate = layui.laydate //日期
-                , laypage = layui.laypage //分页
-                , layer = layui.layer //弹层
-                , table = layui.table //表格
-                , carousel = layui.carousel //轮播
-                , upload = layui.upload //上传
-                , element = layui.element //元素操作
-                , form = layui.form // 表单
-                , $ = layui.$; //jq
+        var laydate = layui.laydate
+                , laypage = layui.laypage
+                , layer = layui.layer
+                , table = layui.table
+                , carousel = layui.carousel
+                , upload = layui.upload
+                , element = layui.element
+                , form = layui.form
+                , $ = layui.$;
         //执行一个 table 实例
         table.render({
             id: 'tb_instance'
-            , elem: '#tb_elem'//页面容器
+            , elem: '#tb_elem'
             , height: 'full'
-            , url: 'query_wh_pic_page' //数据接口
-            , page: true //开启分页
-            , loading: true // 加载动画
-            , cols: [[ //表头
+            , url: 'query_wh_pic_page'
+            , page: true
+            , loading: true
+            , cols: [[
                 {field: '', title: '#', type: 'numbers', sort: false}
                 , {field: 'brandculture', title: 'ID', sort: true}
                 , {field: 'picPath', title: '地址', sort: false}
@@ -77,9 +77,9 @@
             ]]
         });
         // 表格监听
-        table.on('tool(tb_filter)', function (obj) { //注：tool是工具条事件名，tb_filter是table原始容器的属性 lay-filter="对应的值"
-            var data_tr = obj.data //获得当前行数据
-                    , layEvent = obj.event; //获得 lay-event 对应的值
+        table.on('tool(tb_filter)', function (obj) {
+            var data_tr = obj.data
+                    , layEvent = obj.event;
             if (layEvent === 'delItem') {
                 deleteWH(data_tr);
             }
@@ -94,9 +94,9 @@
         // 查询
         function find(data) {
             table.reload('tb_instance', {
-                where: data.field //查询条件
+                where: data.field
                 , page: {
-                    curr: 1 //重新从第 1 页开始
+                    curr: 1
                 }
             });
         }
