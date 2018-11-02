@@ -23,11 +23,12 @@
 </head>
 <body>
 <div class="main">
-    <button class="layui-btn layui-btn-primary" id="btn1">品牌推图添加</button>
-    <button class="layui-btn layui-btn-primary" id="btn2">品牌文化添加</button>
+    <button class="layui-btn layui-btn-primary" id="btn1">品牌推图-添加</button>
+    <button class="layui-btn layui-btn-primary" id="btn2">品牌文化-添加</button>
     <br>
-    <button class="layui-btn layui-btn-primary" id="btn3">品牌推图</button>
-    <button class="layui-btn layui-btn-primary" id="btn4">品牌文化</button>
+    <br>
+    <button class="layui-btn layui-btn-primary" id="btn3">品牌推图-管理</button>
+    <button class="layui-btn layui-btn-primary" id="btn4">品牌文化-管理</button>
 </div>
 <script>
     layui.use('layer', function () {
@@ -58,7 +59,17 @@
                 type: 2,
                 content: 'pptts.html',
                 title: "品牌推图",
-                area: ['800px', '600px'],
+                area: ['1000px', '600px'],
+                fixed: true,
+                maxmin: true
+            });
+        });
+        $("#btn4").on("click", function () {
+            layer.open({
+                type: 2,
+                content: 'ppwhs.html',
+                title: "品牌推图",
+                area: ['1000px', '600px'],
                 fixed: true,
                 maxmin: true
             });

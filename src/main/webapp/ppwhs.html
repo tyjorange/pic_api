@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <title>品牌贴图</title>
+    <title>品牌文化</title>
     <link rel="stylesheet" href="layui/css/layui.css" media="all">
     <style type="text/css">
         .layui-form {
@@ -31,7 +31,7 @@
             <label class="layui-form-label">ID</label>
 
             <div class="layui-input-block">
-                <input type="text" name="pType" autocomplete="off" class="layui-input">
+                <input type="text" name="brandculture" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
@@ -65,14 +65,13 @@
             id: 'tb_instance'
             , elem: '#tb_elem'//页面容器
             , height: 'full'
-            , url: 'query_tt_pic_page' //数据接口
+            , url: 'query_wh_pic_page' //数据接口
             , page: true //开启分页
             , loading: true // 加载动画
             , cols: [[ //表头
                 {field: '', title: '#', type: 'numbers', sort: false}
-                , {field: 'pType', title: 'ID', sort: true}
-                , {field: 'title', title: '推文', sort: false}
-                , {field: 'picture', title: '地址', sort: false}
+                , {field: 'brandculture', title: 'ID', sort: true}
+                , {field: 'picPath', title: '地址', sort: false}
                 , {field: 'genTime', title: '添加时间', sort: false}
                 , {toolbar: '#barDemo', align: 'center'}
             ]]
@@ -82,7 +81,7 @@
             var data_tr = obj.data //获得当前行数据
                     , layEvent = obj.event; //获得 lay-event 对应的值
             if (layEvent === 'delItem') {
-                deleteTT(data_tr);
+                deleteWH(data_tr);
             }
         });
 
@@ -103,11 +102,11 @@
         }
 
         // 删除
-        function deleteTT(data_tr) {
+        function deleteWH(data_tr) {
             console.log(data_tr);
             layer.confirm('确认删除记录？', function (index) {
                 $.ajax({
-                    url: "/pic_api/pptt/" + data_tr.pId,
+                    url: "/pic_api/ppwh/" + data_tr.wId,
                     type: 'DELETE',
                     success: function (resp) {
                         if (resp.code === 30) {

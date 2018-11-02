@@ -22,6 +22,7 @@ public class RespResultUtil {
         result.setCode(respResultEnum.getCode());
         result.setMsg(respResultEnum.getMsg());
         result.setData(object);
+        result.setCount(total);
         return result;
     }
 

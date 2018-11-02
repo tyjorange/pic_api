@@ -12,6 +12,8 @@ public class RespResult {
     // 具体内容
     private Object data;
 
+    private Long count;
+
     public Integer getCode() {
         return code;
     }
@@ -36,4 +38,11 @@ public class RespResult {
         this.data = data;
     }
 
+    public Long getCount() {
+        return count;
+    }
+
+    public void setCount(Long count) {
+        this.count = count;
+    }
 }

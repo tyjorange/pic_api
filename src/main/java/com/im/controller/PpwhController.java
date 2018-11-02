@@ -1,21 +1,14 @@
 package com.im.controller;
 
 import com.im.domain.RespResult;
-import com.im.enums.RespResultEnum;
 import com.im.pojo.Ppwh;
 import com.im.service.PpwhService;
 import com.im.utils.RespResultUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.*;
-import java.util.UUID;
 
 /**
  * 品牌文化
@@ -46,23 +39,23 @@ public class PpwhController {
      *
      * @param ppwh     条件值
      * @param page     当前页
-     * @param pageSize 每页条数
+     * @param limit 每页条数
      * @return HTTP返回值封装对象
      */
     @GetMapping(value = "/query_wh_pic_page")
     public RespResult queryPpwh(Ppwh ppwh,
                                 @RequestParam(value = "page", required = false) Integer page,
-                                @RequestParam(value = "pageSize", required = false) Integer pageSize) {
+                                @RequestParam(value = "limit", required = false) Integer limit) {
         if (ppwh == null) {
             ppwh = new Ppwh();
         }
         if (page == null) {
             page = 1;
         }
-        if (pageSize == null) {
-            pageSize = 5;
+        if (limit == null) {
+            limit = 5;
         }
-        return ppwhService.queryPpwhList(ppwh, page, pageSize);
+        return ppwhService.queryPpwhList(ppwh, page, limit);
     }
 
     /**

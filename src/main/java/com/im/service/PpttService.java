@@ -123,12 +123,15 @@ public class PpttService {
         if (pptt.getPicture() != null) {
             criteria.andEqualTo("picture", pptt.getPicture());
         }
+        if (pptt.getpType() != null) {
+            criteria.andEqualTo("pType", pptt.getpType());
+        }
         PageInfo<Pptt> pageInfo = new PageInfo<>(mapper.selectByExample(example));
         long total = pageInfo.getTotal();
         if (total == 0) {
             return RespResultUtil.success(RespResultEnum.EMPTY_RESULT);
         }
-        return RespResultUtil.success(RespResultEnum.FIND_SUCCESS, pageInfo.getList(), null);
+        return RespResultUtil.success(RespResultEnum.FIND_SUCCESS, pageInfo.getList(), total);
     }
 
 }

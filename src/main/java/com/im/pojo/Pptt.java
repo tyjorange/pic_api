@@ -1,5 +1,7 @@
 package com.im.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -18,6 +20,7 @@ public class Pptt {
     private Integer pType;
 
     @Column(name = "gen_time")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date genTime;
     /**
      * 图片路径
