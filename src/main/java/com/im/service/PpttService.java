@@ -85,7 +85,7 @@ public class PpttService {
     }
 
     /**
-     * 列表查询
+     * 列表查询 无分页
      *
      * @param pptt 条件值
      * @return HTTP返回值封装对象
@@ -109,20 +109,17 @@ public class PpttService {
     }
 
     /**
-     * 列表查询
+     * 列表查询 分页
      *
-     * @param pptt     条件值
-     * @param page     当前页
-     * @param pageSize 每页条数
+     * @param pptt  条件值
+     * @param page  当前页
+     * @param limit 每页条数
      * @return HTTP返回值封装对象
      */
-    public RespResult queryPpttList(Pptt pptt, Integer page, Integer pageSize) {
-        PageHelper.startPage(page, pageSize);
+    public RespResult queryPpttList(Pptt pptt, Integer page, Integer limit) {
+        PageHelper.startPage(page, limit);
         Example example = new Example(Pptt.class);
         Example.Criteria criteria = example.createCriteria();
-        if (pptt.getPicture() != null) {
-            criteria.andEqualTo("picture", pptt.getPicture());
-        }
         if (pptt.getpType() != null) {
             criteria.andEqualTo("pType", pptt.getpType());
         }

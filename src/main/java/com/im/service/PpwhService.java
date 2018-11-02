@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -84,7 +83,7 @@ public class PpwhService {
     }
 
     /**
-     * 列表查询
+     * 列表查询 无分页
      *
      * @param ppwh 条件值
      * @return HTTP返回值封装对象
@@ -108,15 +107,15 @@ public class PpwhService {
     }
 
     /**
-     * 列表查询
+     * 列表查询 分页
      *
-     * @param ppwh     条件值
-     * @param page     当前页
-     * @param pageSize 每页条数
+     * @param ppwh  条件值
+     * @param page  当前页
+     * @param limit 每页条数
      * @return HTTP返回值封装对象
      */
-    public RespResult queryPpwhList(Ppwh ppwh, Integer page, Integer pageSize) {
-        PageHelper.startPage(page, pageSize);
+    public RespResult queryPpwhList(Ppwh ppwh, Integer page, Integer limit) {
+        PageHelper.startPage(page, limit);
         Example example = new Example(Ppwh.class);
         Example.Criteria criteria = example.createCriteria();
         if (ppwh.getBrandculture() != null) {

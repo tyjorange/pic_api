@@ -35,10 +35,10 @@ public class PpwhController {
     }
 
     /**
-     * 条件查询
+     * 条件查询 分页
      *
-     * @param ppwh     条件值
-     * @param page     当前页
+     * @param ppwh  条件值
+     * @param page  当前页
      * @param limit 每页条数
      * @return HTTP返回值封装对象
      */

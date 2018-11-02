@@ -44,8 +44,8 @@ public class PpttController {
      */
     @GetMapping(value = "/query_tt_pic_page")
     public RespResult queryPptt(Pptt pptt,
-                                @RequestParam(value = "page", required = false) Integer page,
-                                @RequestParam(value = "limit", required = false) Integer limit) {
+                                @RequestParam(value = "page", required = true) Integer page,
+                                @RequestParam(value = "limit", required = true) Integer limit) {
         if (pptt == null) {
             pptt = new Pptt();
         }

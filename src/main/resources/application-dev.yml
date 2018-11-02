@@ -2,7 +2,11 @@ server:
   port: 8082
   servlet:
     context-path: /pic_api
-#日志等级
 logging:
   level:
-    root: DEBUG
+    root: INFO
+
+file:
+  staticAccessPath: /img/**
+  uploadFolder: G://xiazai/
+  filePrefix: http://localhost:8081/pic_api/img/

@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: prod #加载不同配置文件
+    active: dev
   datasource:
       url: jdbc:mysql://localhost:3306/pic_db?useSSL=false
       driver-class-name: com.mysql.jdbc.Driver
@@ -9,11 +9,6 @@ spring:
   servlet:
     multipart:
       max-file-size: 10Mb
-
-file:
-  staticAccessPath: /img/**
-  uploadFolder: G://xiazai/
-  filePrefix: http://localhost:8081/pic_api/img/
 
 mybatis:
     type-aliases-package: com.im.pojo
