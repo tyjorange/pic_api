@@ -1,0 +1,200 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>标签信息</title>
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <style type="text/css">
+        .layui-form {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .layui-form-item {
+            margin-top: 15px;
+            margin-bottom: 15px;
+            margin-left: 10px;
+            clear: both;
+        }
+
+        .layui-table-body {
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body>
+<!-- 搜索栏开始 -->
+<form class="layui-form layui-form-pane">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">标签号</label>
+            <div class="layui-input-block">
+                <input type="text" name="labelid" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <!-- <div class="layui-inline">
+            <label class="layui-form-label">持卡人编号</label>
+            <div class="layui-input-block">
+                <input type="text" name="number" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-inline">
+            <label class="layui-form-label">持卡人</label>
+            <div class="layui-input-block">
+                <input type="text" name="name" autocomplete="off" class="layui-input">
+            </div>
+        </div> -->
+        <div class="layui-inline">
+            <button class="layui-btn layui-btn-primary" type="reset"><i class="layui-icon layui-icon-close"></i>重新输入</button>
+            <button class="layui-btn" lay-submit lay-filter="find"><i class="layui-icon layui-icon-search"></i>查询</button>
+            <button class="layui-btn" lay-submit lay-filter="add"><i class="layui-icon layui-icon-add-1"></i>添加</button>
+        </div>
+    </div>
+    <table class="layui-hide" id="tb_elem" lay-filter="tb_filter"></table>
+</form>
+<!-- 搜索栏结束 -->
+<script type="text/html" id="barDemo">
+    {{#  if(d.number === null){ }}
+    <a class="layui-btn layui-btn-xs" lay-event="getLabel">领卡</a>
+    {{#  } else { }}
+    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="backLabel">退卡</a>
+    {{#  } }}
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="delItem">删除</a>
+</script>
+
+<script src="layui/layui.all.js"></script>
+<script>
+    layui.use(['laydate', 'laypage', 'layer', 'table', 'carousel', 'upload', 'element', 'form'], function () {
+        var laydate = layui.laydate //日期
+                , laypage = layui.laypage //分页
+                , layer = layui.layer //弹层
+                , table = layui.table //表格
+                , carousel = layui.carousel //轮播
+                , upload = layui.upload //上传
+                , element = layui.element //元素操作
+                , form = layui.form // 表单
+                , $ = layui.$; //jq
+        //执行一个 table 实例
+        table.render({
+            id: 'tb_instance'
+            , elem: '#tb_elem'//页面容器
+            , height: 'full'
+            , url: 'query_tt_pic_page' //数据接口
+            , page: true //开启分页
+            , loading: true // 加载动画
+            , cols: [[ //表头
+                {field: '', title: '#', type: 'numbers', sort: false}
+                , {field: 'pType', title: 'ID', sort: true}
+                , {field: 'title', title: '推文', sort: false}
+                , {field: 'picture', title: '地址', sort: false}
+                , {toolbar: '#barDemo', align: 'center'}
+            ]]
+        });
+        // 表格监听
+        table.on('tool(tb_filter)', function (obj) { //注：tool是工具条事件名，tb_filter是table原始容器的属性 lay-filter="对应的值"
+            var data_tr = obj.data //获得当前行数据
+                    , layEvent = obj.event; //获得 lay-event 对应的值
+            if (layEvent === 'delItem') {
+                deleteLabel(data_tr);
+            } else if (layEvent === 'getLabel') {
+                getLabel('领卡', ['index_to_label_get.do?labelid='+data_tr.labelid, 'no']);
+            } else if (layEvent === 'backLabel') {
+                backLabel(data_tr);
+            }
+        });
+
+        // 查询监听
+        form.on('submit(find)', function (data) {
+            find(data);
+            return false;
+        });
+
+        // 添加监听
+        form.on('submit(add)', function () {
+            add_update('添加', ['index_to_label_add_update.do', 'no']);
+            return false;
+        });
+
+        // 查询
+        function find(data) {
+            table.reload('tb_instance', {
+                where: data.field //查询条件
+                , page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+        }
+
+        // 添加_修改
+        function add_update(title, array) {
+            layer.open({
+                type: 2,
+                title: title,
+                content: array,
+                area: ['25%', '50%'],
+                end: function () {
+                    table.reload('tb_instance');
+                }
+            });
+        }
+
+        // 删除
+        function deleteLabel(data_tr) {
+            layer.confirm('确认删除记录？', function (index) {
+                $.ajax({
+                    url: "label_del.do",
+                    type: 'POST',
+                    dataType: "json",
+                    contentType: 'application/json',
+                    data: JSON.stringify(data_tr),
+                    success: function (resp) {
+                        if (resp.code === 30) {
+                            parent.layer.msg(resp.msg);
+                            layer.close(index);
+                        } else {
+                            parent.layer.msg(resp.msg);
+                        }
+                        table.reload('tb_instance');
+                    }
+                });
+            });
+        }
+
+        // 领卡
+        function getLabel(title, array) {
+            layer.open({
+                type: 2,
+                title: title,
+                content: array,
+                area: ['25%', '50%'],
+                end: function () {
+                    table.reload('tb_instance');
+                }
+            });
+        }
+
+        // 退卡
+        function backLabel(data_tr) {
+            layer.confirm('确认退卡？', function (index) {
+                $.ajax({
+                    url: "label_back.do",
+                    type: 'POST',
+                    dataType: "json",
+                    contentType: 'application/json',
+                    data: JSON.stringify(data_tr),
+                    success: function (resp) {
+                        if (resp.code === 100) {
+                            parent.layer.msg(resp.msg);
+                            layer.close(index);
+                        } else {
+                            parent.layer.msg(resp.msg);
+                        }
+                        table.reload('tb_instance');
+                    }
+                });
+            });
+        }
+    });
+</script>
+</body>
+</html>

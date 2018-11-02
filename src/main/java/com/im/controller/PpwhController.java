@@ -23,41 +23,9 @@ import java.util.UUID;
  */
 @RestController
 public class PpwhController {
-    private final static Logger logger = LoggerFactory.getLogger(PpwhController.class);
+    //    private final static Logger logger = LoggerFactory.getLogger(PpwhController.class);
     @Autowired
     private PpwhService ppwhService;
-    @Value("${file.uploadFolder}")
-    private String uploadFolder;
-    @Value("${file.filePrefix}")
-    private String filePrefix;
-
-    @PostMapping(value = "/up_ppwh")
-    public RespResult upPpwhImg(@RequestParam(value = "file") MultipartFile file) {
-        if (!file.isEmpty()) {
-            String image_file_name;
-            try {
-                image_file_name = UUID.randomUUID().toString().replace("-", "").toUpperCase() + ".jpg";
-                BufferedOutputStream out = new BufferedOutputStream(
-                        new FileOutputStream(new File(uploadFolder + image_file_name)));
-                out.write(file.getBytes());
-                out.flush();
-                out.close();
-//                Ppwh ppwh = new Ppwh();
-//                ppwh.setBrandculture(brandculture);
-//                ppwh.setPicPath(filePrefix + image_file_name);
-//                ppwhService.savePpwh(ppwh);
-            } catch (FileNotFoundException e) {
-                logger.error(e.getMessage());
-                return RespResultUtil.sysError(RespResultEnum.SYS_EXCEPTION);
-            } catch (IOException e) {
-                logger.error(e.getMessage());
-                return RespResultUtil.sysError(RespResultEnum.SYS_EXCEPTION);
-            }
-            return RespResultUtil.success(RespResultEnum.SUCCESS, (filePrefix + image_file_name));
-        } else {
-            return RespResultUtil.sysError(RespResultEnum.SYS_EXCEPTION);
-        }
-    }
 
     /**
      * 条件查询 无分页

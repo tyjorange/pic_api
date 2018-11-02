@@ -28,7 +28,7 @@
 <form class="layui-form layui-form-pane" action="">
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">brandculture</label>
+            <label class="layui-form-label">ID</label>
 
             <div class="layui-input-inline">
                 <input type="text" name="brandculture" lay-verify="number" autocomplete="off" class="layui-input">
@@ -85,7 +85,7 @@
         });
         upload.render({
             elem: '#test1'
-            , url: '/pic_api/up_ppwh'
+            , url: '/pic_api/up_img'
             , auto: true
             , before: function (obj) {
                 obj.preview(function (index, file, result) {

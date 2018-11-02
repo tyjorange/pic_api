@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,7 @@ public class PpttService {
      */
     @Transactional
     public RespResult savePptt(Pptt pptt) {
+        pptt.setGenTime(new Date());
         int insert = mapper.insert(pptt);
         if (insert == 0) {
             return RespResultUtil.success(RespResultEnum.ADD_UPDATE_FAILED);

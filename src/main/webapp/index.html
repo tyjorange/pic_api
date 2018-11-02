@@ -5,11 +5,29 @@
     <title>图片上传</title>
     <link rel="stylesheet" href="layui/css/layui.css" media="all">
     <script src="layui/layui.all.js"></script>
+    <style>
+        .main {
+            text-align: center;
+            background-color: #fff;
+            border-radius: 20px;
+            width: 300px;
+            height: 350px;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+    </style>
 </head>
 <body>
-<div>
-    <button class="layui-btn layui-btn-primary" id="btn1">品牌推图</button>
-    <button class="layui-btn layui-btn-primary" id="btn2">品牌文化</button>
+<div class="main">
+    <button class="layui-btn layui-btn-primary" id="btn1">品牌推图添加</button>
+    <button class="layui-btn layui-btn-primary" id="btn2">品牌文化添加</button>
+    <br>
+    <button class="layui-btn layui-btn-primary" id="btn3">品牌推图</button>
+    <button class="layui-btn layui-btn-primary" id="btn4">品牌文化</button>
 </div>
 <script>
     layui.use('layer', function () {
@@ -20,7 +38,7 @@
                 type: 2,
                 content: 'pptt.html',
                 title: "品牌推图图片上传",
-                area: ['800px', '600px'],
+                area: ['800px', '700px'],
                 fixed: true,
                 maxmin: true
             });
@@ -30,6 +48,16 @@
                 type: 2,
                 content: 'ppwh.html',
                 title: "品牌文化图片上传",
+                area: ['800px', '600px'],
+                fixed: true,
+                maxmin: true
+            });
+        });
+        $("#btn3").on("click", function () {
+            layer.open({
+                type: 2,
+                content: 'pptts.html',
+                title: "品牌推图",
                 area: ['800px', '600px'],
                 fixed: true,
                 maxmin: true

@@ -1,19 +1,24 @@
 package com.im.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
+import java.util.Date;
 
 public class Pptt {
+    public interface SimpView {
+    }
+
+    public interface DetailView extends SimpView {
+    }
+
     @Id
     @Column(name = "p_id")
-    @JsonIgnore
     private Integer pId;
 
     @Column(name = "p_type")
-    @JsonIgnore
     private Integer pType;
 
+    @Column(name = "gen_time")
+    private Date genTime;
     /**
      * 图片路径
      */
@@ -86,5 +91,13 @@ public class Pptt {
      */
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public Date getGenTime() {
+        return genTime;
+    }
+
+    public void setGenTime(Date genTime) {
+        this.genTime = genTime;
     }
 }

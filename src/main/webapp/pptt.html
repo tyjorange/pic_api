@@ -28,20 +28,20 @@
 <form class="layui-form layui-form-pane" action="">
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">brandculture</label>
+            <label class="layui-form-label">ID</label>
 
             <div class="layui-input-inline">
-                <input type="text" name="brandculture" lay-verify="number" autocomplete="off" class="layui-input">
+                <input type="text" name="p_type" lay-verify="number" autocomplete="off" class="layui-input">
                 <input type="hidden" id="img_url" name="img" value=""/>
             </div>
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-inline">
-            <label class="layui-form-label">brandculture</label>
+            <label class="layui-form-label">图片推文</label>
 
             <div class="layui-input-inline">
-                <input type="text" name="brandculture" lay-verify="number" autocomplete="off" class="layui-input">
+                <input type="text" name="title" lay-verify="" autocomplete="off" class="layui-input">
             </div>
         </div>
     </div>
@@ -78,12 +78,13 @@
                 return false;
             }
             $.ajax({
-                url: "add_ppwh",
+                url: "add_pptt",
                 type: 'POST',
                 dataType: "json",
                 data: {
-                    brandculture: (data.field.brandculture),
-                    picPath: (data.field.img)
+                    pType: (data.field.p_type),
+                    title: (data.field.title),
+                    picture: (data.field.img)
                 },
                 success: function (resp) {
                     parent.layer.msg("图片上传成功");
@@ -94,7 +95,7 @@
         });
         upload.render({
             elem: '#test1'
-            , url: '/pic_api/up_ppwh'
+            , url: '/pic_api/up_img'
             , auto: true
             , before: function (obj) {
                 obj.preview(function (index, file, result) {

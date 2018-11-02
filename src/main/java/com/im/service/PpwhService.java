@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -32,6 +33,7 @@ public class PpwhService {
      */
     @Transactional
     public RespResult savePpwh(Ppwh ppwh) {
+        ppwh.setGenTime(new Date());
         int insert = mapper.insert(ppwh);
         if (insert == 0) {
             return RespResultUtil.success(RespResultEnum.ADD_UPDATE_FAILED);
@@ -97,11 +99,12 @@ public class PpwhService {
         if (ppwhList.size() == 0) {
             return RespResultUtil.success(RespResultEnum.EMPTY_RESULT);
         }
-        ArrayList<String> arrayList = new ArrayList<>();
-        for (Ppwh phwh : ppwhList) {
-            arrayList.add(phwh.getPicPath());
-        }
-        return RespResultUtil.success(RespResultEnum.FIND_SUCCESS, arrayList, new Integer(arrayList.size()).longValue());
+//        ArrayList<String> arrayList = new ArrayList<>();
+//        for (Ppwh phwh : ppwhList) {
+//            arrayList.add(phwh.getPicPath());
+//        }
+//        return RespResultUtil.success(RespResultEnum.FIND_SUCCESS, arrayList, new Integer(arrayList.size()).longValue());
+        return RespResultUtil.success(RespResultEnum.FIND_SUCCESS, ppwhList, new Integer(ppwhList.size()).longValue());
     }
 
     /**

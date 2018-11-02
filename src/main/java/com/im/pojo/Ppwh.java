@@ -1,14 +1,23 @@
 package com.im.pojo;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
+import java.util.Date;
 
 public class Ppwh {
     @Id
     @Column(name = "w_id")
-    @JsonIgnore
     private Integer wId;
+
+    @Column(name = "gen_time")
+    private Date genTime;
+
+    public Date getGenTime() {
+        return genTime;
+    }
+
+    public void setGenTime(Date genTime) {
+        this.genTime = genTime;
+    }
 
     /**
      * 品牌文化
