@@ -18,9 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 public class HttpAspect {
     private final static Logger logger = LoggerFactory.getLogger(HttpAspect.class);
 
-    //表示DogController.dogList(..)所有[dogList]参数被拦截
-    //表示DogController.*(..)所有[方法]参数被拦截
-    @Pointcut("execution(public * com.im.controller.PpttController.*(..))")
+    //表示PpttController.queryPptt(..)所有[queryPptt]参数被拦截
+    //表示PpttController.*(..)所有[方法]参数被拦截
+    @Pointcut("execution(public * com.im.controller.*.*(..))")
     private void cp() {
         //切点
     }
