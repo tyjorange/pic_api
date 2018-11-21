@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>PDF上传</title>
+    <link rel="stylesheet" href="layui/css/layui.css" media="all">
+    <script src="layui/layui.all.js"></script>
+    <style>
+        form {
+            margin-top: 5%;
+            margin-left: 35%;
+        }
+    </style>
+</head>
+<body>
+<form class="layui-form layui-form-pane" action="">
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <div class="layui-upload">
+                <div class="layui-upload-list">
+                    <p id="demoText"></p>
+                </div>
+                <button type="button" class="layui-btn" id="test1">选择PDF</button>
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    var index = parent.layer.getFrameIndex(window.name);
+    layui.use('upload', function () {
+        var $ = layui.jquery
+                , upload = layui.upload;
+        var l_index;
+        upload.render({
+            elem: '#test1'
+            , url: '/pic_api/up_pdf'
+            , auto: true
+            , accept: 'file'
+            , before: function (obj) {
+                l_index = layer.load(2, {
+                    shade: [0.1, '#fff']
+                });
+                obj.preview(function (index, file, result) {
+                    $('#demo1').attr('src', result);
+                });
+            }
+            , done: function (res) {
+                layer.close(l_index);
+                return layer.msg(res.msg);
+            }
+        });
+    });
+</script>
+</body>
+</html>

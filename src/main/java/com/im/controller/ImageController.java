@@ -49,4 +49,32 @@ public class ImageController {
             return RespResultUtil.sysError(RespResultEnum.SYS_EXCEPTION);
         }
     }
+
+    @PostMapping(value = "/up_pdf")
+    public RespResult up_pdf(@RequestParam(value = "file") MultipartFile file) {
+        if (!file.isEmpty()) {
+            if (!file.getOriginalFilename().contains("pdf")) {
+                logger.error("不是PDF");
+                return RespResultUtil.customError(-1, "不是PDF文件");
+            }
+            String image_file_name;
+            try {
+                image_file_name = file.getOriginalFilename();
+                BufferedOutputStream out = new BufferedOutputStream(
+                        new FileOutputStream(new File(uploadFolder + image_file_name)));
+                out.write(file.getBytes());
+                out.flush();
+                out.close();
+            } catch (FileNotFoundException e) {
+                logger.error(e.getMessage());
+                return RespResultUtil.sysError(RespResultEnum.SYS_EXCEPTION);
+            } catch (IOException e) {
+                logger.error(e.getMessage());
+                return RespResultUtil.sysError(RespResultEnum.SYS_EXCEPTION);
+            }
+            return RespResultUtil.success(RespResultEnum.SUCCESS, filePrefix + image_file_name);
+        } else {
+            return RespResultUtil.sysError(RespResultEnum.SYS_EXCEPTION);
+        }
+    }
 }
