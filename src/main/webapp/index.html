@@ -37,6 +37,10 @@
     <br>
     <button class="layui-btn layui-btn-primary" id="btn7">用户-管理</button>
     <button class="layui-btn layui-btn-primary" id="btn8" style="visibility: hidden">用户-管理</button>
+    <br>
+    <br>
+    <button class="layui-btn layui-btn-primary" id="btn9">PDF</button>
+    <button class="layui-btn layui-btn-primary" id="btn10" style="visibility: hidden">用户-管理</button>
 </div>
 <script>
     layui.use('layer', function () {
@@ -98,6 +102,16 @@
                 content: 'users.html',
                 title: "添加用户",
                 area: ['800px', '600px'],
+                fixed: true,
+                maxmin: true
+            });
+        });
+        $("#btn9").on("click", function () {
+            layer.open({
+                type: 2,
+                content: 'pdf.html',
+                title: "PDF",
+                area: ['70%', '100%'],
                 fixed: true,
                 maxmin: true
             });

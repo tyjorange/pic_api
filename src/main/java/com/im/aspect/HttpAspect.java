@@ -30,7 +30,7 @@ public class HttpAspect {
      */
     @Before("cp()")
     private void doBefore(JoinPoint joinPoint) {
-        logger.debug("Before...");
+//        logger.debug("Before...");
         ServletRequestAttributes att = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest req = att.getRequest();
         //url
@@ -40,9 +40,9 @@ public class HttpAspect {
         //ip
         logger.warn("ip={}", req.getRemoteAddr());
         //获取 类名.类方法
-        logger.warn("class_method={}", joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
+//        logger.warn("class_method={}", joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
         //获取 参数
-        logger.warn("args={}", joinPoint.getArgs());
+//        logger.warn("args={}", joinPoint.getArgs());
     }
 
     /**
@@ -50,7 +50,7 @@ public class HttpAspect {
      */
     @After("cp()")
     private void doAfter() {
-        logger.warn("After...");
+//        logger.warn("After...");
     }
 
     /**
@@ -59,6 +59,6 @@ public class HttpAspect {
     @AfterReturning(returning = "object", pointcut = "cp()")
     private void doAfterReturning(Object object) {
         //获取请求后返回的内容
-        logger.warn("response={}", object.toString());
+//        logger.warn("response={}", object.toString());
     }
 }
