@@ -1,4 +1,8 @@
 spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
   profiles:
     active: prod
   datasource:
@@ -9,7 +13,6 @@ spring:
   servlet:
     multipart:
       max-file-size: 10Mb
-
 mybatis:
     type-aliases-package: com.im.pojo
     mapper-locations: classpath:mapper/*.xml
